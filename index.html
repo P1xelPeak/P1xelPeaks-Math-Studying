@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P1xelPeaks Games</title>
+<title>Choose a Game - P1xelPeaks</title>
 <style>
   body {
     margin:0;
@@ -43,14 +43,23 @@
   .game-card h3 {
     margin:10px;
   }
-  .game-frame {
+  iframe {
+    width:100vw;
+    height:100vh;
+    border:none;
+    display:block;
+  }
+  #gameModal {
+    display:none;
     position:fixed;
     top:0; left:0;
     width:100%; height:100%;
-    border:none;
-    display:none;
-    z-index:1000;
     background:#000;
+    z-index:1000;
+  }
+  #gameModal iframe {
+    width:100%;
+    height:100%;
   }
   #closeButton {
     position:absolute;
@@ -65,81 +74,60 @@
     cursor:pointer;
     z-index:1001;
   }
-  .hidden-frame {
-    position:absolute;
-    left:-9999px;
-    width:100px;
-    height:100px;
-    border:none;
-  }
 </style>
 </head>
 <body>
 
-<header>🎮 P1xelPeaks Game Site</header>
+<header>🎮 Choose Your Game</header>
 
 <div class="game-grid">
-  <div class="game-card" onclick="showGame('game1')">
-    <img src="https://via.placeholder.com/400x300.png?text=Game+1" alt="Game 1">
-    <h3>Game 1</h3>
+  <div class="game-card" onclick="openGame('https://hello1405.github.io/fireboy-and-watergirl/')">
+    <img src="https://via.placeholder.com/400x300.png?text=Fireboy+Watergirl" alt="Fireboy & Watergirl">
+    <h3>Fireboy & Watergirl</h3>
   </div>
-  <div class="game-card" onclick="showGame('game2')">
-    <img src="https://via.placeholder.com/400x300.png?text=Game+2" alt="Game 2">
-    <h3>Game 2</h3>
+  <div class="game-card" onclick="openGame('https://ubg365.github.io/elastic-man/play.html')">
+    <img src="https://via.placeholder.com/400x300.png?text=Elastic+Man" alt="Elastic Man">
+    <h3>Elastic Man</h3>
   </div>
-  <div class="game-card" onclick="showGame('game3')">
-    <img src="https://via.placeholder.com/400x300.png?text=Game+3" alt="Game 3">
-    <h3>Game 3</h3>
+  <div class="game-card" onclick="openGame('https://adfree3kh0.github.io/projects/flappy-bird/index.html')">
+    <img src="https://via.placeholder.com/400x300.png?text=Flappy+Bird" alt="Flappy Bird">
+    <h3>Flappy Bird</h3>
+  </div>
+  <div class="game-card" onclick="openGame('https://hello1405.github.io/1v1lol.html/')">
+    <img src="https://via.placeholder.com/400x300.png?text=1v1+LOL" alt="1v1 LOL">
+    <h3>1v1 LOL</h3>
+  </div>
+  <div class="game-card" onclick="openGame('https://hello1405.github.io/2048.html/')">
+    <img src="https://via.placeholder.com/400x300.png?text=2048" alt="2048">
+    <h3>2048</h3>
+  </div>
+  <div class="game-card" onclick="openGame('https://hello1405.github.io/basketrandom')">
+    <img src="https://via.placeholder.com/400x300.png?text=Basketball+Random" alt="Basketball Random">
+    <h3>Basketball Random</h3>
+  </div>
+  <div class="game-card" onclick="openGame('https://adfree3kh0.github.io/projects/among-us/index.html')">
+    <img src="https://via.placeholder.com/400x300.png?text=Among+Us" alt="Among Us">
+    <h3>Among Us</h3>
+  </div>
+  <div class="game-card" onclick="openGame('https://adfree3kh0.github.io/projects/btts/index.html')">
+    <img src="https://via.placeholder.com/400x300.png?text=Big+Tower" alt="Big Tower Tiny Square">
+    <h3>Big Tower Tiny Square</h3>
   </div>
 </div>
 
-<!-- Hidden pre-loaded iframes -->
-<iframe id="game1" class="hidden-frame" src="https://zv1y2i8p.play.gamezop.com/g/REwFeKcoN"></iframe>
-<iframe id="game2" class="hidden-frame" src="https://zv1y2i8p.play.gamezop.com/g/rkxMV8TI6Wg"></iframe>
-<iframe id="game3" class="hidden-frame" src="https://zv1y2i8p.play.gamezop.com/g/rkWfy2pXq0r"></iframe>
-
-<!-- Game display frame -->
-<div id="gameModal" class="game-frame">
+<div id="gameModal">
   <button id="closeButton" onclick="closeGame()">Close</button>
+  <iframe id="gameFrame" src="" allowfullscreen allowtransparency="true" frameborder="0"></iframe>
 </div>
 
 <script>
-  // Pre-load all games when page loads
-  window.addEventListener('load', function() {
-    console.log("All games pre-loaded in hidden iframes");
-  });
-
-  function showGame(gameId) {
-    const hiddenFrame = document.getElementById(gameId);
-    const gameModal = document.getElementById('gameModal');
-    
-    // Move the iframe from hidden location to game modal
-    gameModal.appendChild(hiddenFrame);
-    hiddenFrame.classList.remove('hidden-frame');
-    hiddenFrame.style.display = 'block';
-    hiddenFrame.style.width = '100%';
-    hiddenFrame.style.height = '100%';
-    hiddenFrame.style.position = 'absolute';
-    hiddenFrame.style.top = '0';
-    hiddenFrame.style.left = '0';
-    
-    // Show the modal
-    gameModal.style.display = 'block';
+  function openGame(url){
+    document.getElementById('gameFrame').src = url;
+    document.getElementById('gameModal').style.display = 'block';
   }
-
-  function closeGame() {
-    const gameModal = document.getElementById('gameModal');
-    gameModal.style.display = 'none';
-    
-    // Move iframes back to hidden location
-    const iframes = gameModal.getElementsByTagName('iframe');
-    while(iframes.length > 0) {
-      const iframe = iframes[0];
-      iframe.classList.add('hidden-frame');
-      iframe.style.width = '100px';
-      iframe.style.height = '100px';
-      document.body.appendChild(iframe);
-    }
+  function closeGame(){
+    document.getElementById('gameModal').style.display = 'none';
+    document.getElementById('gameFrame').src = '';
   }
 </script>
 
