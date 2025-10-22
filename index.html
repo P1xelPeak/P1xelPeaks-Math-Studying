@@ -172,7 +172,7 @@
     </div>
     
     <div class="games-grid" id="gamesGrid">
-        <!-- Working Games -->
+        <!-- Working Games from hello1405.github.io -->
         <div class="game-card" onclick="openGame('https://hello1405.github.io/fireboy-and-watergirl/')">
             <div class="game-image">🔥💧</div>
             <div class="game-info">
@@ -237,27 +237,11 @@
             </div>
         </div>
         
-        <div class="game-card" onclick="openGame('https://geometrydashonline.github.io/')">
-            <div class="game-image">🔷</div>
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/monkeymart')">
+            <div class="game-image">🐒🛒</div>
             <div class="game-info">
-                <div class="game-title">Geometry Dash</div>
-                <p>Rhythm platformer</p>
-            </div>
-        </div>
-        
-        <div class="game-card" onclick="openGame('https://getaway-shootout.github.io/file/')">
-            <div class="game-image">🔫🏃</div>
-            <div class="game-info">
-                <div class="game-title">Getaway Shootout</div>
-                <p>Racing and shooting</p>
-            </div>
-        </div>
-        
-        <div class="game-card" onclick="openGame('https://ubg44.github.io/FunnyShooter2/')">
-            <div class="game-image">😂🔫</div>
-            <div class="game-info">
-                <div class="game-title">Funny Shooter 2</div>
-                <p>Comedic shooting game</p>
+                <div class="game-title">Monkey Mart</div>
+                <p>Store management game</p>
             </div>
         </div>
         
@@ -266,6 +250,55 @@
             <div class="game-info">
                 <div class="game-title">Google Feud</div>
                 <p>Guess search suggestions</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/3kh0-assets-main-just-fall/3kh0-assets-main-just-fall/just-fall/')">
+            <div class="game-image">😴</div>
+            <div class="game-info">
+                <div class="game-title">Just Fall</div>
+                <p>Falling puzzle game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/3kh0-assets-main-krunker/3kh0-assets-main-krunker/krunker/')">
+            <div class="game-image">🎯</div>
+            <div class="game-info">
+                <div class="game-title">Krunker</div>
+                <p>Fast-paced shooter</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/learntofly.html')">
+            <div class="game-image">🐧✈️</div>
+            <div class="game-info">
+                <div class="game-title">Learn to Fly</div>
+                <p>Penguin flying adventure</p>
+            </div>
+        </div>
+
+        <!-- Working Games from other sources -->
+        <div class="game-card" onclick="openGame('https://emulatoros.github.io/gfile/sketchbook/')">
+            <div class="game-image">🎨</div>
+            <div class="game-info">
+                <div class="game-title">Sketchbook</div>
+                <p>Creative drawing game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://webglmath.github.io/icy-purple-head-superslide/')">
+            <div class="game-image">💜⛷️</div>
+            <div class="game-info">
+                <div class="game-title">Icy Purple Head</div>
+                <p>Sliding puzzle game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://webglmath.github.io/jellycar-worlds/')">
+            <div class="game-image">🚗🍮</div>
+            <div class="game-info">
+                <div class="game-title">JellyCar Worlds</div>
+                <p>Physics driving game</p>
             </div>
         </div>
     </div>
@@ -289,7 +322,7 @@
         }
         
         function searchGames() {
-            const input = document.getElementById('searchInput');
+            const input = document.querySelector('.search-box');
             const filter = input.value.toLowerCase();
             const gameCards = document.getElementsByClassName('game-card');
             
