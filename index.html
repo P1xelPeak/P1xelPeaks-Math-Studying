@@ -1,135 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Choose a Game - P1xelPeaks</title>
-<style>
-  body {
-    margin:0;
-    padding:0;
-    font-family: Arial, sans-serif;
-    background:#121212;
-    color:white;
-  }
-  header {
-    background:#1e1e1e;
-    padding:1rem;
-    font-size:1.5rem;
-    text-align:center;
-  }
-  .game-grid {
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap:20px;
-    padding:20px;
-  }
-  .game-card {
-    background:#1e1e1e;
-    border-radius:10px;
-    overflow:hidden;
-    cursor:pointer;
-    transition: transform 0.2s;
-  }
-  .game-card:hover {
-    transform: scale(1.05);
-  }
-  .game-card img {
-    width:100%;
-    height:150px;
-    object-fit:cover;
-    display:block;
-  }
-  .game-card h3 {
-    margin:10px;
-  }
-  iframe {
-    width:100vw;
-    height:100vh;
-    border:none;
-    display:block;
-  }
-  #gameModal {
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:#000;
-    z-index:1000;
-  }
-  #gameModal iframe {
-    width:100%;
-    height:100%;
-  }
-  #closeButton {
-    position:absolute;
-    top:10px;
-    right:10px;
-    background:#444;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    font-size:1rem;
-    border-radius:5px;
-    cursor:pointer;
-    z-index:1001;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - P1xelPeaks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .home-btn {
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        
+        .home-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .search-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .games-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .game-info {
+            padding: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 95%;
+            height: 95%;
+            margin: 2.5% auto;
+            background: #1a1a2e;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 1.2rem;
+        }
+        
+        .game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-
-<header>🎮 Choose Your Game</header>
-
-<div class="game-grid">
-  <div class="game-card" onclick="openGame('https://hello1405.github.io/fireboy-and-watergirl/')">
-    <img src="https://via.placeholder.com/400x300.png?text=Fireboy+Watergirl" alt="Fireboy & Watergirl">
-    <h3>Fireboy & Watergirl</h3>
-  </div>
-  <div class="game-card" onclick="openGame('https://ubg365.github.io/elastic-man/play.html')">
-    <img src="https://via.placeholder.com/400x300.png?text=Elastic+Man" alt="Elastic Man">
-    <h3>Elastic Man</h3>
-  </div>
-  <div class="game-card" onclick="openGame('https://adfree3kh0.github.io/projects/flappy-bird/index.html')">
-    <img src="https://via.placeholder.com/400x300.png?text=Flappy+Bird" alt="Flappy Bird">
-    <h3>Flappy Bird</h3>
-  </div>
-  <div class="game-card" onclick="openGame('https://hello1405.github.io/1v1lol.html/')">
-    <img src="https://via.placeholder.com/400x300.png?text=1v1+LOL" alt="1v1 LOL">
-    <h3>1v1 LOL</h3>
-  </div>
-  <div class="game-card" onclick="openGame('https://hello1405.github.io/2048.html/')">
-    <img src="https://via.placeholder.com/400x300.png?text=2048" alt="2048">
-    <h3>2048</h3>
-  </div>
-  <div class="game-card" onclick="openGame('https://hello1405.github.io/basketrandom')">
-    <img src="https://via.placeholder.com/400x300.png?text=Basketball+Random" alt="Basketball Random">
-    <h3>Basketball Random</h3>
-  </div>
-  <div class="game-card" onclick="openGame('https://adfree3kh0.github.io/projects/among-us/index.html')">
-    <img src="https://via.placeholder.com/400x300.png?text=Among+Us" alt="Among Us">
-    <h3>Among Us</h3>
-  </div>
-  <div class="game-card" onclick="openGame('https://adfree3kh0.github.io/projects/btts/index.html')">
-    <img src="https://via.placeholder.com/400x300.png?text=Big+Tower" alt="Big Tower Tiny Square">
-    <h3>Big Tower Tiny Square</h3>
-  </div>
-</div>
-
-<div id="gameModal">
-  <button id="closeButton" onclick="closeGame()">Close</button>
-  <iframe id="gameFrame" src="" allowfullscreen allowtransparency="true" frameborder="0"></iframe>
-</div>
-
-<script>
-  function openGame(url){
-    document.getElementById('gameFrame').src = url;
-    document.getElementById('gameModal').style.display = 'block';
-  }
-  function closeGame(){
-    document.getElementById('gameModal').style.display = 'none';
-    document.getElementById('gameFrame').src = '';
-  }
-</script>
-
+    <div class="header">
+        <div class="nav">
+            <div class="logo">🎮 P1xelPeaks Games</div>
+            <a href="index.html" class="home-btn">🏠 Home</a>
+        </div>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="🔍 Search for games..." onkeyup="searchGames()">
+    </div>
+    
+    <div class="games-grid" id="gamesGrid">
+        <!-- Working Games -->
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/fireboy-and-watergirl/')">
+            <div class="game-image">🔥💧</div>
+            <div class="game-info">
+                <div class="game-title">Fireboy & Watergirl</div>
+                <p>Cooperative puzzle adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/1v1lol.html/')">
+            <div class="game-image">⚔️</div>
+            <div class="game-info">
+                <div class="game-title">1v1 LOL</div>
+                <p>Build and battle arena</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/2048.html/')">
+            <div class="game-image">🔢</div>
+            <div class="game-info">
+                <div class="game-title">2048</div>
+                <p>Addictive number puzzle</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/basketrandom')">
+            <div class="game-image">🏀</div>
+            <div class="game-info">
+                <div class="game-title">Basketball Random</div>
+                <p>Crazy basketball fun</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/basketballlegends')">
+            <div class="game-image">⭐🏀</div>
+            <div class="game-info">
+                <div class="game-title">Basketball Legends</div>
+                <p>Street basketball action</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/basketball-stars')">
+            <div class="game-image">🌟🏀</div>
+            <div class="game-info">
+                <div class="game-title">Basketball Stars</div>
+                <p>Basketball shooting game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/basketbrosio')">
+            <div class="game-image">👬🏀</div>
+            <div class="game-info">
+                <div class="game-title">Basket Bros</div>
+                <p>Team basketball game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/asmallworldcup')">
+            <div class="game-image">⚽🌍</div>
+            <div class="game-info">
+                <div class="game-title">A Small World Cup</div>
+                <p>Soccer championship</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://geometrydashonline.github.io/')">
+            <div class="game-image">🔷</div>
+            <div class="game-info">
+                <div class="game-title">Geometry Dash</div>
+                <p>Rhythm platformer</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://getaway-shootout.github.io/file/')">
+            <div class="game-image">🔫🏃</div>
+            <div class="game-info">
+                <div class="game-title">Getaway Shootout</div>
+                <p>Racing and shooting</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://ubg44.github.io/FunnyShooter2/')">
+            <div class="game-image">😂🔫</div>
+            <div class="game-info">
+                <div class="game-title">Funny Shooter 2</div>
+                <p>Comedic shooting game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/3kh0-assets-main-google-feud/3kh0-assets-main-google-feud/google-feud/')">
+            <div class="game-image">🔍</div>
+            <div class="game-info">
+                <div class="game-title">Google Feud</div>
+                <p>Guess search suggestions</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="game-modal" id="gameModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeGame()">✕</button>
+            <iframe class="game-frame" id="gameFrame"></iframe>
+        </div>
+    </div>
+    
+    <script>
+        function openGame(url) {
+            document.getElementById('gameFrame').src = url;
+            document.getElementById('gameModal').style.display = 'block';
+        }
+        
+        function closeGame() {
+            document.getElementById('gameModal').style.display = 'none';
+            document.getElementById('gameFrame').src = '';
+        }
+        
+        function searchGames() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const gameCards = document.getElementsByClassName('game-card');
+            
+            for (let i = 0; i < gameCards.length; i++) {
+                const title = gameCards[i].getElementsByClassName('game-title')[0].textContent.toLowerCase();
+                if (title.includes(filter)) {
+                    gameCards[i].style.display = '';
+                } else {
+                    gameCards[i].style.display = 'none';
+                }
+            }
+        }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeGame();
+            }
+        });
+    </script>
 </body>
 </html>
