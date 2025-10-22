@@ -1,46 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P1xelPeaks Game Site</title>
-<style>
-  body {
-    margin:0;
-    padding:0;
-    font-family: Arial, sans-serif;
-    background:#121212;
-    color:white;
-    text-align:center;
-  }
-  header {
-    background:#1e1e1e;
-    padding:1rem;
-    font-size:2rem;
-  }
-  main {
-    margin-top: 50px;
-  }
-  a.button {
-    display:inline-block;
-    margin-top:30px;
-    padding:15px 30px;
-    background:#444;
-    color:white;
-    text-decoration:none;
-    border-radius:8px;
-    font-size:1.2rem;
-  }
-  a.button:hover {
-    background:#666;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>P1xelPeaks Game Site</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #121212;
+    }
+    header {
+      background: #1e1e1e;
+      color: white;
+      padding: 1rem;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    iframe {
+      width: 100%;
+      height: calc(100% - 60px); /* subtract header height */
+      border: none;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-  <header>🎮 P1xelPeaks Game Site</header>
-  <main>
-    <p>Welcome! Click below to play games:</p>
-    <a class="button" href="games.html">Play Games</a>
-  </main>
+  <header>P1xelPeaks Game Site</header>
+  <iframe src="https://actuallymath.github.io/"
+          title="Table Tennis World Tour"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock">
+  </iframe>
 </body>
 </html>
