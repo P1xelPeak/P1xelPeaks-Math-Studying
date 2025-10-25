@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - P1xelPeaks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .home-btn {
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s;
+            margin: 0 5px;
+        }
+        
+        .home-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .settings-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .settings-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .settings-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .setting-group {
+            margin-bottom: 20px;
+        }
+        
+        .setting-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .setting-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .setting-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .save-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .info-text {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+        
+        .current-settings {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="nav">
+            <div class="logo">⚙️ P1xelPeaks Settings</div>
+            <div>
+                <a href="index.html" class="home-btn">🏠 Home</a>
+                <a href="games.html" class="home-btn">🎮 Games</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="settings-container">
+        <div class="settings-card">
+            <div class="settings-title">Panic Key Settings</div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Panic Key:</label>
+                <input type="text" id="panicKey" class="setting-input" maxlength="1" placeholder="Press any key">
+                <div class="info-text">Current key: <span id="currentPanicKey">`</span></div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Panic URL:</label>
+                <input type="text" id="panicUrl" class="setting-input" placeholder="https://classroom.google.com">
+                <div class="info-text">Current URL: <span id="currentPanicUrl">https://classroom.google.com</span></div>
+            </div>
+            
+            <button class="save-btn" onclick="saveSettings()">💾 Save Settings</button>
+        </div>
+        
+        <div class="current-settings">
+            <h3>Current Settings:</h3>
+            <p><strong>Panic Key:</strong> Press <code id="displayPanicKey">`</code> to quickly switch to the panic URL</p>
+            <p><strong>Panic URL:</strong> <span id="displayPanicUrl">https://classroom.google.com</span></p>
+            <p><strong>Tip:</strong> The panic key works anywhere on the site, even when playing games!</p>
+        </div>
+    </div>
+    
+    <script>
+        // Load saved settings
+        function loadSettings() {
+            const panicKey = localStorage.getItem('panicKey') || '`';
+            const panicUrl = localStorage.getItem('panicUrl') || 'https://classroom.google.com';
+            
+            document.getElementById('panicKey').value = panicKey;
+            document.getElementById('panicUrl').value = panicUrl;
+            document.getElementById('currentPanicKey').textContent = panicKey;
+            document.getElementById('currentPanicUrl').textContent = panicUrl;
+            document.getElementById('displayPanicKey').textContent = panicKey;
+            document.getElementById('displayPanicUrl').textContent = panicUrl;
+        }
+        
+        // Save settings
+        function saveSettings() {
+            const panicKey = document.getElementById('panicKey').value || '`';
+            const panicUrl = document.getElementById('panicUrl').value || 'https://classroom.google.com';
+            
+            localStorage.setItem('panicKey', panicKey);
+            localStorage.setItem('panicUrl', panicUrl);
+            
+            loadSettings();
+            alert('Settings saved successfully!');
+        }
+        
+        // Detect key press for panic key input
+        document.getElementById('panicKey').addEventListener('keydown', function(e) {
+            e.preventDefault();
+            this.value = e.key;
+        });
+        
+        // Load settings when page loads
+        document.addEventListener('DOMContentLoaded', loadSettings);
+    </script>
+</body>
+</html>

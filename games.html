@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - P1xelPeaks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .home-btn {
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s;
+            margin: 0 5px;
+        }
+        
+        .home-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .search-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .games-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .game-info {
+            padding: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 95%;
+            height: 95%;
+            margin: 2.5% auto;
+            background: #1a1a2e;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 1.2rem;
+        }
+        
+        .game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="nav">
+            <div class="logo">🎮 P1xelPeaks Games</div>
+            <div>
+                <a href="index.html" class="home-btn">🏠 Home</a>
+                <a href="settings.html" class="home-btn">⚙️ Settings</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="🔍 Search for games..." onkeyup="searchGames()">
+    </div>
+    
+    <div class="games-grid" id="gamesGrid">
+        <!-- All games from hello1405.github.io -->
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/1v1lol.html/')">
+            <div class="game-image">⚔️</div>
+            <div class="game-info">
+                <div class="game-title">1v1 LOL</div>
+                <p>Build and battle arena</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/2048.html/')">
+            <div class="game-image">🔢</div>
+            <div class="game-info">
+                <div class="game-title">2048</div>
+                <p>Addictive number puzzle</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/basketrandom')">
+            <div class="game-image">🏀</div>
+            <div class="game-info">
+                <div class="game-title">Basketball Random</div>
+                <p>Crazy basketball fun</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/coreball')">
+            <div class="game-image">🎱</div>
+            <div class="game-info">
+                <div class="game-title">Core Ball</div>
+                <p>Physics ball game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/duck-life-4/')">
+            <div class="game-image">🦆</div>
+            <div class="game-info">
+                <div class="game-title">Duck Life 4</div>
+                <p>Duck training adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/dune/')">
+            <div class="game-image">🏜️</div>
+            <div class="game-info">
+                <div class="game-title">Dune</div>
+                <p>Desert adventure game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/fireboy-and-watergirl/')">
+            <div class="game-image">🔥💧</div>
+            <div class="game-info">
+                <div class="game-title">Fireboy & Watergirl</div>
+                <p>Cooperative puzzle adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/fireboy-and-watergirl-2/')">
+            <div class="game-image">🔥💧2</div>
+            <div class="game-info">
+                <div class="game-title">Fireboy & Watergirl 2</div>
+                <p>More cooperative puzzles</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/fireboy-and-watergirl-3/')">
+            <div class="game-image">🔥💧3</div>
+            <div class="game-info">
+                <div class="game-title">Fireboy & Watergirl 3</div>
+                <p>Ice temple adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/tunnel-rush/')">
+            <div class="game-image">🚇</div>
+            <div class="game-info">
+                <div class="game-title">Tunnel Rush</div>
+                <p>Fast-paced tunnel runner</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/vex-3/')">
+            <div class="game-image">🤖3</div>
+            <div class="game-info">
+                <div class="game-title">Vex 3</div>
+                <p>Challenging platformer</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/vex-4/')">
+            <div class="game-image">🤖4</div>
+            <div class="game-info">
+                <div class="game-title">Vex 4</div>
+                <p>More platforming challenges</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/vex-5/')">
+            <div class="game-image">🤖5</div>
+            <div class="game-info">
+                <div class="game-title">Vex 5</div>
+                <p>Advanced platforming</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/vex-6/')">
+            <div class="game-image">🤖6</div>
+            <div class="game-info">
+                <div class="game-title">Vex 6</div>
+                <p>Latest vex challenge</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/vex-7/')">
+            <div class="game-image">🤖7</div>
+            <div class="game-info">
+                <div class="game-title">Vex 7</div>
+                <p>Newest vex adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/learntofly.html')">
+            <div class="game-image">🐧✈️</div>
+            <div class="game-info">
+                <div class="game-title">Learn to Fly</div>
+                <p>Penguin flying adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/learntofly2')">
+            <div class="game-image">🐧✈️2</div>
+            <div class="game-info">
+                <div class="game-title">Learn to Fly 2</div>
+                <p>More flying fun</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/learntofly3')">
+            <div class="game-image">🐧✈️3</div>
+            <div class="game-info">
+                <div class="game-title">Learn to Fly 3</div>
+                <p>Ultimate flying challenge</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/run3.html')">
+            <div class="game-image">🏃3</div>
+            <div class="game-info">
+                <div class="game-title">Run 3</div>
+                <p>Space running game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/sonic')">
+            <div class="game-image">🌀</div>
+            <div class="game-info">
+                <div class="game-title">Sonic</div>
+                <p>Classic platformer</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/donkey-kong/')">
+            <div class="game-image">🦍</div>
+            <div class="game-info">
+                <div class="game-title">Donkey Kong</div>
+                <p>Classic arcade game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/bloxorz')">
+            <div class="game-image">🧊</div>
+            <div class="game-info">
+                <div class="game-title">Bloxorz</div>
+                <p>Block puzzle game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/motox3mpoolparty')">
+            <div class="game-image">🏍️💦</div>
+            <div class="game-info">
+                <div class="game-title">Moto X3M Pool Party</div>
+                <p>Water motorcycle stunts</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/motox3mspooky')">
+            <div class="game-image">🏍️👻</div>
+            <div class="game-info">
+                <div class="game-title">Moto X3M Spooky</div>
+                <p>Spooky motorcycle racing</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/motox3mwinter')">
+            <div class="game-image">🏍️❄️</div>
+            <div class="game-info">
+                <div class="game-title">Moto X3M Winter</div>
+                <p>Winter motorcycle challenge</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/clusterrush')">
+            <div class="game-image">📦</div>
+            <div class="game-info">
+                <div class="game-title">Cluster Rush</div>
+                <p>Fast-paced obstacle course</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/craftmine')">
+            <div class="game-image">⛏️</div>
+            <div class="game-info">
+                <div class="game-title">Craft Mine</div>
+                <p>Mining adventure game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/3kh0-assets-main-google-feud/3kh0-assets-main-google-feud/google-feud/')">
+            <div class="game-image">🔍</div>
+            <div class="game-info">
+                <div class="game-title">Google Feud</div>
+                <p>Guess search suggestions</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/3kh0-assets-main-just-fall/3kh0-assets-main-just-fall/just-fall/')">
+            <div class="game-image">😴</div>
+            <div class="game-info">
+                <div class="game-title">Just Fall</div>
+                <p>Falling puzzle game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/basketbrosio')">
+            <div class="game-image">👬🏀</div>
+            <div class="game-info">
+                <div class="game-title">Basket Bros</div>
+                <p>Team basketball game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/basketballlegends')">
+            <div class="game-image">⭐🏀</div>
+            <div class="game-info">
+                <div class="game-title">Basketball Legends</div>
+                <p>Street basketball action</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/projectlaser')">
+            <div class="game-image">🔫</div>
+            <div class="game-info">
+                <div class="game-title">Project Laser</div>
+                <p>Laser shooting game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/asmallworldcup')">
+            <div class="game-image">⚽🌍</div>
+            <div class="game-info">
+                <div class="game-title">A Small World Cup</div>
+                <p>Soccer championship</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/basketball-stars')">
+            <div class="game-image">🌟🏀</div>
+            <div class="game-info">
+                <div class="game-title">Basketball Stars</div>
+                <p>Basketball shooting game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/burritobison')">
+            <div class="game-image">🌯🐂</div>
+            <div class="game-info">
+                <div class="game-title">Burrito Bison</div>
+                <p>Wrestling candy adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/eggycar')">
+            <div class="game-image">🥚🚗</div>
+            <div class="game-info">
+                <div class="game-title">Eggy Car</div>
+                <p>Egg delivery driving</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/jetpackjoyride')">
+            <div class="game-image">🚀</div>
+            <div class="game-info">
+                <div class="game-title">Jetpack Joyride</div>
+                <p>Jetpack flying adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/monkeymart')">
+            <div class="game-image">🐒🛒</div>
+            <div class="game-info">
+                <div class="game-title">Monkey Mart</div>
+                <p>Store management game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/motox3m')">
+            <div class="game-image">🏍️1</div>
+            <div class="game-info">
+                <div class="game-title">Moto X3M</div>
+                <p>Motorcycle stunt racing</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/motox3m2')">
+            <div class="game-image">🏍️2</div>
+            <div class="game-info">
+                <div class="game-title">Moto X3M 2</div>
+                <p>More motorcycle stunts</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/motox3m3')">
+            <div class="game-image">🏍️3</div>
+            <div class="game-info">
+                <div class="game-title">Moto X3M 3</div>
+                <p>Advanced motorcycle racing</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/retrobowl')">
+            <div class="game-image">🏈</div>
+            <div class="game-info">
+                <div class="game-title">Retro Bowl</div>
+                <p>Classic football game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/retrobowlcollege')">
+            <div class="game-image">🎓🏈</div>
+            <div class="game-info">
+                <div class="game-title">Retro Bowl College</div>
+                <p>College football edition</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/slope')">
+            <div class="game-image">📈</div>
+            <div class="game-info">
+                <div class="game-title">Slope</div>
+                <p>3D running game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/slope2')">
+            <div class="game-image">📈2</div>
+            <div class="game-info">
+                <div class="game-title">Slope 2</div>
+                <p>More slope running</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/stack')">
+            <div class="game-image">📦</div>
+            <div class="game-info">
+                <div class="game-title">Stack</div>
+                <p>Block stacking game</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/subwaysurfersny')">
+            <div class="game-image">🚇🏃</div>
+            <div class="game-info">
+                <div class="game-title">Subway Surfers NY</div>
+                <p>New York subway running</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/tanukisunset')">
+            <div class="game-image">🦊🌅</div>
+            <div class="game-info">
+                <div class="game-title">Tanuki Sunset</div>
+                <p>Skateboarding adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/templerun2')">
+            <div class="game-image">🏃2</div>
+            <div class="game-info">
+                <div class="game-title">Temple Run 2</div>
+                <p>Endless running adventure</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/tetris')">
+            <div class="game-image">🧩</div>
+            <div class="game-info">
+                <div class="game-title">Tetris</div>
+                <p>Classic block puzzle</p>
+            </div>
+        </div>
+        
+        <div class="game-card" onclick="openGame('https://hello1405.github.io/theimpossiblequiz')">
+            <div class="game-image">❓</div>
+            <div class="game-info">
+                <div class="game-title">The Impossible Quiz</div>
+                <p>Tricky question game</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="game-modal" id="gameModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeGame()">✕</button>
+            <iframe class="game-frame" id="gameFrame"></iframe>
+        </div>
+    </div>
+    
+    <script>
+        // Load panic settings
+        let panicKey = localStorage.getItem('panicKey') || '`';
+        let panicUrl = localStorage.getItem('panicUrl') || 'https://classroom.google.com';
+        
+        function openGame(url) {
+            const iframe = document.getElementById('gameFrame');
+            iframe.src = url;
+            document.getElementById('gameModal').style.display = 'block';
+            
+            // Focus the iframe for keyboard input
+            setTimeout(() => {
+                iframe.focus();
+            }, 100);
+        }
+        
+        function closeGame() {
+            document.getElementById('gameModal').style.display = 'none';
+            document.getElementById('gameFrame').src = '';
+        }
+        
+        function searchGames() {
+            const input = document.querySelector('.search-box');
+            const filter = input.value.toLowerCase();
+            const gameCards = document.getElementsByClassName('game-card');
+            
+            for (let i = 0; i < gameCards.length; i++) {
+                const title = gameCards[i].getElementsByClassName('game-title')[0].textContent.toLowerCase();
+                if (title.includes(filter)) {
+                    gameCards[i].style.display = '';
+                } else {
+                    gameCards[i].style.display = 'none';
+                }
+            }
+        }
+        
+        // Panic key functionality
+        document.addEventListener('keydown', function(e) {
+            if (e.key === panicKey) {
+                window.location.href = panicUrl;
+            }
+            if (e.key === 'Escape') {
+                closeGame();
+            }
+        });
+        
+        // Focus management
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.game-frame')) {
+                document.getElementById('gameFrame').focus();
+            }
+        });
+    </script>
+</body>
+</html>
